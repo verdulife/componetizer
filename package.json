@@ -3,6 +3,9 @@
   "displayName": "Componetizer",
   "description": "Make components on the fly",
   "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/verdulife/componetizer"
+  },
   "engines": {
     "vscode": "^1.83.0"
   },
@@ -15,9 +18,26 @@
     "commands": [
       {
         "command": "componetizer.generateComponent",
-        "title": "Componetizer: Generate component from selection"
+        "title": "Componetizer: Component from selection"
       }
-    ]
+    ],
+    "keybindings": [
+      {
+        "command": "componetizer.generateComponent",
+        "key": "alt+x",
+        "mac": "alt+x",
+        "when": "editorHasSelection"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "componetizer.generateComponent",
+          "group": "1_modification"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

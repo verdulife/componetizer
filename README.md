@@ -1,71 +1,40 @@
-# componetizer README
+# Componetizer: Components from selection
 
-This is the README for your extension "componetizer". After writing up a brief description, we recommend including the following sections.
+Crear componentes es importante para mantener tu codigo limpio, ordenado y escalable. Cuando estas desarollando, por prisa o por falta de tiempo, se deja para despues la componetizacion de algunos elemenos. Con **Componetizer** ya no hay excusa, selecciona el fragmento de codigo, y voila, **Componetizer** se encargara de crear el componente en la carpeta correspondiente, asi como de añadir el import y substituir la seleccion por el componente.
 
-## Features
+![Context Menu](src/assets/context-menu.png)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Functionality
 
-For example if there is an image subfolder under your extension project workspace:
+A continuacion se muestra una lista con el funcionamiento de la extension:
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Selecciona un fragmento de codigo.
+2. Desde el menu contextual selecciona `Componetizer:...` o usa el atajo de teclado `Alt+X`.
+3. Añade el nombre al nuevo archivo (ej. `MyComponent.jsx`).
+4. Automaticamente se buscara la carpeta `components` en tu proyecto.
+5. Si esta no existe se creara automaticamente dentro de la carperta `src` (en pryectos de `Svelte`, esta se creara en `src/lib/`)
+6. Se creara dentro de la carpeta `components` el nuevo componente.
+7. El texto seleccionado se substiuira por el componente
+8. La importacion del componente se realizara automaticamente.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Esta extension esta orientada para proyectos de `React`, `Next.js` `Svelte`, `Sveltekit`, `Astro`, etc.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Es posible que en algunos casos, si la carpeta components no esta creada, esta se genere en una ruta no compatible con tu proyecto.
+
+Dado que se pueden dar casos donde se utilicen a la vez extensiones `.jsx` y `tsx`, o en proyectos de `Astro`, multiples extensiones, no se ha implementado la auto deteccion de extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+Coming soon...
 
-### 1.0.1
+### 0.0.1
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Created all extension base logic and project.
 
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**

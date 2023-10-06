@@ -5,6 +5,7 @@ import {
   window,
   workspace,
   Position,
+  Selection,
 } from "vscode";
 import { access, mkdir, constants, writeFile } from "node:fs/promises";
 import { join, extname, basename, relative, dirname } from "node:path";
@@ -16,7 +17,6 @@ const {
   showInputBox,
   showInformationMessage,
   showWarningMessage,
-  showTextDocument,
 } = window;
 
 function getWorkspaceRootPath(): string | undefined {
@@ -109,7 +109,7 @@ export function activate(context: ExtensionContext) {
 
       const fileName = await showInputBox({
         prompt: "Enter the component file name",
-        placeHolder: "MyComponent.[component-extension]",
+        placeHolder: "Ex. MyComponent.jsx",
       });
 
       if (!fileName) return;
@@ -169,11 +169,10 @@ export function activate(context: ExtensionContext) {
           );
 
           activeTextEditor.edit((editBuilder) => {
-            const { hasImports, lastImportIndex } =
-              checkExistingImports(activeTextEditor);
-            const currentDocumentPath = activeTextEditor.document.uri.fsPath;
-            const importStatement = generateImportStatement(
-              filePath,
+            /* const { hasImports, lastImportIndex } =
+              checkExistingImports(activeTextEditor); */
+            /* const importStatement = generateImportStatement(
+                filePath,
               componentName,
               currentDocumentPath
             );
@@ -181,28 +180,31 @@ export function activate(context: ExtensionContext) {
             if (hasImports) {
               const lastImportPosition =
                 activeTextEditor.document.lineAt(lastImportIndex).range.end;
-              editBuilder.insert(lastImportPosition, `\n${importStatement}`);
-            } else {
-              editBuilder.insert(new Position(1, 0), importStatement);
-            }
+                editBuilder.insert(lastImportPosition, `\n${importStatement}`);
+              } else {
+                editBuilder.insert(new Position(1, 0), importStatement);
+              } */
+
+            /* const currentDocumentPath = activeTextEditor.document.uri.fsPath; */
 
             const componentSnippet = `<${componentName}></${componentName}>`;
             editBuilder.replace(activeTextEditor.selection, componentSnippet);
+
+            setTimeout(() => {
+              // command to run action: add all the imports
+              commands.executeCommand("editor.action.autoImport");
+            });
           });
 
-          await activeTextEditor.document.save();
-
-          const document = await workspace.openTextDocument(filePath);
-          const textEditor = await showTextDocument(document);
-
-          await commands.executeCommand("editor.action.formatDocument");
-          await textEditor.document.save();
+          // await commands.executeCommand("editor.action.formatDocument");
+          // Make this code below format the new component without open it or focus it.
 
           /* TODO: 
-            - move and autoimport nested componets
-            - fix aliases
-            - optimize code
-            - refactor/modularize
+          - move and autoimport nested componets
+          - fix aliases
+          - refactor/modularize
+          - detect and generate component props
+          - try to use vscode ts intelisense to generate props, imports, etc, properly.
           */
         } catch (error) {
           showErrorMessage("Error writing the file");
